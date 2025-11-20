@@ -1111,7 +1111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9aba46f33c1f6674592f36ec4a8e46e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MenuManager
-  rankingText: {fileID: 491366275}
+  rankingText: {fileID: 0}
 --- !u!1 &1315125523
 GameObject:
   m_ObjectHideFlags: 0
