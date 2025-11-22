@@ -62,14 +62,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8089463292665794593}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0.0072198836, w: 0.999974}
   m_LocalPosition: {x: 0, y: 0, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7482439536241553608}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -0.827}
 --- !u!212 &2203464195373213161
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -327,10 +327,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b0d15693012d45478668043de9d485f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerShooting2D
-  projectilePrefab: {fileID: 0}
-  shootPoint: {fileID: 0}
+  projectilePrefab: {fileID: 240585501691696513, guid: 3d8f3827e0c36b44c97edc20a5f07af4, type: 3}
+  shootPoint: {fileID: 7482439536241553608}
   fireRate: 0.5
-  shootSound: {fileID: 0}
+  shootSound: {fileID: 8300000, guid: 314c8b54de76a534f98986cecf927a7d, type: 3}
 --- !u!114 &9121097566636621058
 MonoBehaviour:
   m_ObjectHideFlags: 0
