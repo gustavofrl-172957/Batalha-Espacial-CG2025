@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Enemy
   - TiroPlayer
+  - Asteroid
+  - TiroInimigo
+  - Boss
   layers:
   - Default
   - TransparentFX

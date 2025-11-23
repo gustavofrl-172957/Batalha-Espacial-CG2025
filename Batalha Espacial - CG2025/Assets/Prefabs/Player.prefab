@@ -310,11 +310,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc76962c645b9e843a9cca97a93a1d13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController2D
-  speed: 8
-  xMin: -8
-  xMax: 8
-  yMin: -4.5
-  yMax: 4.5
+  moveSpeed: 5
+  rb: {fileID: 0}
+  cam: {fileID: 0}
+  maxHealth: 100
+  currentHealth: 0
+  healthSlider: {fileID: 0}
+  explosionPrefab: {fileID: 8609706169438444055, guid: aa8048bb271fbc94999be1a1751efe6d, type: 3}
 --- !u!114 &8882335462439515200
 MonoBehaviour:
   m_ObjectHideFlags: 0

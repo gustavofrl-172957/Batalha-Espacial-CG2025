@@ -1,141 +1,209 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using TMPro; // Para UI de texto
+using TMPro;
+using UnityEngine.UI;
 using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    [Header("Referências")]
+    [Header("Fase")]
+    public int killsToSpawnBoss = 5;
+    public float levelTime = 120f; // 2 minutos
     public GameObject playerPrefab;
-    public Transform playerSpawnPoint;
-    public GameObject[] enemyPrefabs;
-    
+    public GameObject bossPrefab;
+    public GameObject asteroidPrefab;
+    public GameObject[] enemyPrefabs; // Array de prefabs (Pequeno, Grande)
+
     [Header("UI")]
+    public TextMeshProUGUI timerText;
     public TextMeshProUGUI scoreText;
-    public TextMeshProUGUI timeText;
-    public GameObject gameOverPanel; // Painel para ativar quando ganhar/perder
-    public TextMeshProUGUI finalMessageText; // Texto dentro do painel ("Vitoria" ou "Derrota")
+    public TextMeshProUGUI objectivesText; // "Inimigos: 0/5"
+    public Slider bossHealthBar;
+    public Slider playerHealthSlider;
+    public GameObject gameOverPanel;
+    public TextMeshProUGUI endMessageText; // "Vitoria" ou "Derrota"
+    public TMP_InputField nameInput; // Para Ranking
+    public Button submitButton;
 
-    // Estado do Jogo
-    private int totalEnemiesToSpawn;
-    private int enemiesDefeated = 0;
-    private float gameTime = 0f;
-    private bool isGameActive = true;
+    // Controle Interno
+    private float currentTime;
+    private int currentKills = 0;
+    private bool isBossActive = false;
+    private bool isGameRunning = true;
 
-    void Awake()
-    {
-        if (Instance == null) Instance = this;
-        else Destroy(gameObject);
-    }
+    void Awake() { Instance = this; }
 
     void Start()
     {
-        // 1. Configura o nível baseado no GameSettings
-        SetupLevel();
-
-        // 2. Nasce o Jogador
-        if (playerPrefab != null)
-            Instantiate(playerPrefab, new Vector3(0, -4, 0), Quaternion.identity);
-
-        // 3. Inicia Spawns
-        StartCoroutine(SpawnEnemies());
+        currentTime = levelTime;
+        GameSettings.CurrentScore = 0;
         
+        SpawnPlayer();
+        
+        StartCoroutine(SpawnRoutine());
+        UpdateUI();
+
         if(gameOverPanel) gameOverPanel.SetActive(false);
+        if(bossHealthBar) bossHealthBar.gameObject.SetActive(false);
     }
 
-    void SetupLevel()
+    void SpawnPlayer()
     {
-        totalEnemiesToSpawn = GameSettings.SelectedLevel * 10; 
-        
-        // Dificuldade - apenas log
-        Debug.Log($"Iniciando Nível {GameSettings.SelectedLevel} na dificuldade {GameSettings.SelectedDifficulty}");
+        if (playerPrefab != null)
+        {
+            GameObject playerGO = Instantiate(playerPrefab, new Vector3(0, -4, 0), Quaternion.identity);
+            
+            PlayerController2D playerScript = playerGO.GetComponent<PlayerController2D>();
+            
+            if (playerScript != null && playerHealthSlider != null)
+            {
+                playerScript.healthSlider = playerHealthSlider; 
+                playerScript.currentHealth = playerScript.maxHealth;
+                playerScript.TakeDamage(0); // Força a UI a atualizar com o valor máximo
+            }
+        }
     }
 
     void Update()
     {
-        if (!isGameActive) return;
+        if (!isGameRunning) return;
 
-        // Conta o tempo
-        gameTime += Time.deltaTime;
-        
-        // Atualiza UI
-        if (timeText) timeText.text = "Tempo: " + gameTime.ToString("F1") + "s";
-    }
+        currentTime -= Time.deltaTime;
+        if(timerText) timerText.text = "Tempo: " + Mathf.Ceil(currentTime).ToString();
 
-    IEnumerator SpawnEnemies()
-    {
-        int spawnedCount = 0;
-        
-        while (spawnedCount < totalEnemiesToSpawn && isGameActive)
+        if (currentTime <= 0)
         {
-            yield return new WaitForSeconds(2.0f); // Espera 2 segundos entre inimigos
-
-            // Posição aleatória no X (dentro da tela) e fixa no Y (topo)
-            float randomX = Random.Range(-7f, 7f);
-            Vector3 spawnPos = new Vector3(randomX, 6f, 0f);
-
-            // Escolhe tipo de inimigo aleatório
-            int enemyIndex = Random.Range(0, enemyPrefabs.Length);
-            
-            Instantiate(enemyPrefabs[enemyIndex], spawnPos, Quaternion.identity);
-            
-            spawnedCount++;
+            GameOver(false, "TEMPO ESGOTADO!");
         }
     }
 
-    // Chamado pelo EnemyBase quando morre
-    public void EnemyDefeated()
+    IEnumerator SpawnRoutine()
     {
-        enemiesDefeated++;
-        AddScore(100);
-
-        // Condição de Vitória: Matou todos os inimigos previstos
-        if (enemiesDefeated >= totalEnemiesToSpawn)
+        while (isGameRunning && !isBossActive)
         {
-            EndGame(true);
+            yield return new WaitForSeconds(2f); // Intervalo de Spawn
+
+            // Define Posição Aleatória (Topo ou Lados)
+            Vector3 spawnPos = GetRandomSpawnPosition();
+
+            // Decide o que spawnar (30% Asteroide, 70% Inimigo)
+            GameObject toSpawn;
+            if (Random.value < 0.3f && asteroidPrefab != null) 
+                toSpawn = asteroidPrefab;
+            else 
+                toSpawn = enemyPrefabs[Random.Range(0, enemyPrefabs.Length)];
+
+            GameObject obj = Instantiate(toSpawn, spawnPos, Quaternion.identity);
+            
+            // Configura se atira (Logica da Dificuldade)
+            EnemyBase enemy = obj.GetComponent<EnemyBase>();
+            if (enemy && !enemy.isAsteroid)
+            {
+                ConfigureEnemyShooting(enemy);
+            }
         }
     }
-    
-    // Chamado pelo PlayerHealth quando morre
-    public void GameOver()
+
+    void ConfigureEnemyShooting(EnemyBase enemy)
     {
-        EndGame(false);
+        var dif = GameSettings.SelectedDifficulty;
+        // Facil: Ninguem atira. Medio: So os grandes (Pontos > 200). Dificil: Todos.
+        if (dif == GameSettings.Difficulty.Dificil) enemy.canShoot = true;
+        else if (dif == GameSettings.Difficulty.Medio && enemy.points > 200) enemy.canShoot = true;
+        else enemy.canShoot = false;
     }
 
-    public void AddScore(int amount)
+    Vector3 GetRandomSpawnPosition()
     {
-        GameSettings.CurrentScore += amount;
-        if (scoreText) scoreText.text = "Pontos: " + GameSettings.CurrentScore;
+        // Spawnar fora da tela
+        float x = Random.Range(-9f, 9f);
+        return new Vector3(x, 7f, 0f); // Topo
     }
 
-    void EndGame(bool win)
+    public void RegisterKill(string type, int points)
     {
-        isGameActive = false;
+        if (!isGameRunning) return;
+
+        GameSettings.CurrentScore += points;
+        UpdateUI();
+
+        if (type == "Boss")
+        {
+            CalculateTimeBonus();
+            GameOver(true, "VITÓRIA! MISSÃO CUMPRIDA.");
+        }
+        else if (type != "Asteroid" && !isBossActive)
+        {
+            currentKills++;
+            if (currentKills >= killsToSpawnBoss)
+            {
+                SpawnBoss();
+            }
+        }
+        UpdateUI();
+    }
+
+    void SpawnBoss()
+    {
+        isBossActive = true;
+        if(bossPrefab) Instantiate(bossPrefab, new Vector3(0, 6, 0), Quaternion.identity);
+        
+        if(objectivesText) objectivesText.text = "ALERTA: CHEFE DETECTADO!";
+        if(bossHealthBar) {
+            bossHealthBar.gameObject.SetActive(true);
+            bossHealthBar.maxValue = GameBalance.GetEnemyHP("Boss");
+            bossHealthBar.value = bossHealthBar.maxValue;
+        }
+    }
+
+    public void UpdateBossUI(int hp) { if(bossHealthBar) bossHealthBar.value = hp; }
+
+    void CalculateTimeBonus()
+    {
+        float percent = currentTime / levelTime;
+        int bonus = 0;
+        if (percent > 0.66f) bonus = 999;
+        else if (percent > 0.33f) bonus = 667;
+        else bonus = 333;
+        GameSettings.CurrentScore += bonus;
+    }
+
+    public void GameOver(bool win, string message)
+    {
+        isGameRunning = false;
         if (gameOverPanel)
         {
             gameOverPanel.SetActive(true);
-            if (finalMessageText)
-                finalMessageText.text = win ? "VITÓRIA!" : "GAME OVER";
+            if(endMessageText) endMessageText.text = message + "\nPontuação: " + GameSettings.CurrentScore;
+            
+            // So mostra input de nome se ganhou
+            if (nameInput) nameInput.gameObject.SetActive(win);
+            if (submitButton) submitButton.gameObject.SetActive(win);
         }
-        
-        // Salva Ranking se ganhou
-        if (win)
-        {
-            float bestTime = PlayerPrefs.GetFloat("BestTime", 999f);
-            if (gameTime < bestTime)
-            {
-                PlayerPrefs.SetFloat("BestTime", gameTime);
-            }
-        }
-
-        // Volta pro menu após 3 segundos
-        Invoke("ReturnToMenu", 3f);
     }
 
-    void ReturnToMenu()
+    // Chamado pelo botão no UI
+    public void SubmitScore()
     {
+        string name = nameInput.text;
+        if (string.IsNullOrEmpty(name)) name = "Piloto";
+
+        // Salva High Score simples
+        int oldHigh = PlayerPrefs.GetInt("HighScore", 0);
+        if (GameSettings.CurrentScore > oldHigh)
+        {
+            PlayerPrefs.SetInt("HighScore", GameSettings.CurrentScore);
+            PlayerPrefs.SetString("HighName", name);
+            PlayerPrefs.SetFloat("BestTime", levelTime - currentTime);
+        }
         SceneManager.LoadScene("MainMenu");
+    }
+    
+    void UpdateUI()
+    {
+        if(scoreText) scoreText.text = "Pts: " + GameSettings.CurrentScore;
+        if(objectivesText && !isBossActive) objectivesText.text = "Inimigos: " + currentKills + "/" + killsToSpawnBoss;
     }
 }
