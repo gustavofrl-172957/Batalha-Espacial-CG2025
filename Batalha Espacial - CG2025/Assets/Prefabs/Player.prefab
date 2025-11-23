@@ -49,7 +49,7 @@ GameObject:
   - component: {fileID: 9121097566636621058}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -329,7 +329,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerShooting2D
   projectilePrefab: {fileID: 240585501691696513, guid: 3d8f3827e0c36b44c97edc20a5f07af4, type: 3}
   shootPoint: {fileID: 7482439536241553608}
-  fireRate: 0.5
+  fireRate: 0.3
   shootSound: {fileID: 8300000, guid: 314c8b54de76a534f98986cecf927a7d, type: 3}
 --- !u!114 &9121097566636621058
 MonoBehaviour:
