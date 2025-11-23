@@ -25,7 +25,7 @@ public class PlayerShooting2D : MonoBehaviour
 
     void Shoot()
     {
-        Instantiate(projectilePrefab, shootPoint.position, Quaternion.identity);
+        Instantiate(projectilePrefab, shootPoint.position, shootPoint.rotation);
         if(shootSound && audioSource) audioSource.PlayOneShot(shootSound);
     }
 }
