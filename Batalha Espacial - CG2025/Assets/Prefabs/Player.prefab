@@ -46,7 +46,6 @@ GameObject:
   - component: {fileID: 2741999884040691922}
   - component: {fileID: 2123369750373420559}
   - component: {fileID: 8882335462439515200}
-  - component: {fileID: 9121097566636621058}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -311,7 +310,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController2D
   moveSpeed: 5
-  rb: {fileID: 0}
+  rb: {fileID: 2754465814642520981}
   cam: {fileID: 0}
   maxHealth: 100
   currentHealth: 0
@@ -333,17 +332,3 @@ MonoBehaviour:
   shootPoint: {fileID: 7482439536241553608}
   fireRate: 0.3
   shootSound: {fileID: 8300000, guid: 314c8b54de76a534f98986cecf927a7d, type: 3}
---- !u!114 &9121097566636621058
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8089463292665794593}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf6f7a0c51274b64f9b6c0a8663e5d7f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
-  maxHealth: 100
-  currentHealth: 0

@@ -21,6 +21,9 @@ public class PlayerController2D : MonoBehaviour
 
     void Start()
     {
+        if (cam == null) cam = Camera.main;
+        if (rb == null) rb = GetComponent<Rigidbody2D>();
+
         currentHealth = maxHealth;
         if (healthSlider) healthSlider.value = currentHealth;
     }
