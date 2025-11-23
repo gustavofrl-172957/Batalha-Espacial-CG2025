@@ -9,6 +9,8 @@ TagManager:
   - Asteroid
   - TiroInimigo
   - Boss
+  - Bullet
+  - Background
   layers:
   - Default
   - TransparentFX
