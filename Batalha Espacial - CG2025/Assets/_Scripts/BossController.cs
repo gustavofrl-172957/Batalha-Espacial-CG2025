@@ -59,7 +59,7 @@ public class BossController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("PlayerProjectile"))
+        if (other.CompareTag("TiroPlayer"))
         {
             Projectile2D p = other.GetComponent<Projectile2D>();
             TakeDamage(p != null ? p.damage : 10);

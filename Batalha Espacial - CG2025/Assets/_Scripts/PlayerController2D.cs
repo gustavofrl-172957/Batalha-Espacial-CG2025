@@ -40,12 +40,15 @@ public class PlayerController2D : MonoBehaviour
 
     void FixedUpdate()
     {
-        // Movimentação Física
-        rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+        Vector2 newPos = rb.position + movement * moveSpeed * Time.fixedDeltaTime;
 
-        // Rotação (Olhar para o mouse - 360 graus)
+        newPos.x = Mathf.Clamp(newPos.x, -8f, 8f);
+        newPos.y = Mathf.Clamp(newPos.y, -4.5f, 4.5f);
+
+        rb.MovePosition(newPos);
+
         Vector2 lookDir = mousePos - rb.position;
-        float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f; // -90 para ajustar o sprite se ele estiver virado pra cima
+        float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
         rb.rotation = angle;
     }
 
