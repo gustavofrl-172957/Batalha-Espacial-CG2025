@@ -150,7 +150,7 @@ O ranking aparece no menu principal como:
 
 ## 📦 Links do Projeto
 
-* **Executável do Projeto:** [Clique aqui](https://drive.google.com/file/d/1hkmH5FFG7hI73Q-k3vKFK9vH0-sBgvCm/view?usp=sharing)
+* **Executável do Projeto:** [Clique aqui](https://drive.google.com/file/d/15OVuEq5sI1UxDABxuA6TuNr6UCu8CrPs/view?usp=sharing)
 * **Vídeo Demonstrativo:** [Clique aqui](https://drive.google.com/file/d/1ofprzqHSYDwzbTYDLKUTz2nGY7TjZHqc/view?usp=sharing)
 
 ---
