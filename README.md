@@ -8,7 +8,7 @@ Trabalho prático final para a disciplina de **Computação Gráfica e Realidade
 
 O movimento da nave é **omnidirecional (360º)**, sendo a rotação controlada pelo mouse e a propulsão/aceleração controlada pelo teclado, cumprindo o requisito de manipulação de câmera análoga.
 
-![Banner do Jogo](https://private-user-images.githubusercontent.com/229839896/517923981-2219ac63-f373-4738-9887-c05bed20f586.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NjM5NTIxODAsIm5iZiI6MTc2Mzk1MTg4MCwicGF0aCI6Ii8yMjk4Mzk4OTYvNTE3OTIzOTgxLTIyMTlhYzYzLWYzNzMtNDczOC05ODg3LWMwNWJlZDIwZjU4Ni5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUxMTI0JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MTEyNFQwMjM4MDBaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT05NTg0MGNkOTMxNTY2NjJkOTk0MWM4NTJhZjA4NWEwNzg0OTY5ZTNhODg0ODQzN2NiMmQ0YjE0NmZkOWZjZTVkJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.eGZnBlUs0pJXc5pz5o4M3773eCAo05CKei3m0_zurdw)
+![Banner do Jogo](https://github.com/user-attachments/assets/84a9d7b7-9aeb-40f8-a441-1531d0e005c5)
 
 ---
 
