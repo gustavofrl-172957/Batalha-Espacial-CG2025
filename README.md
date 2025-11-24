@@ -8,7 +8,7 @@ Trabalho prático final para a disciplina de **Computação Gráfica e Realidade
 
 Diferente dos jogos de "nave" tradicionais verticais, aqui você possui liberdade total de rotação (360º) para mirar e pilotar, exigindo reflexos rápidos para gerenciar ameaças vindo de todas as direções enquanto corre contra o tempo.
 
-![Banner do Jogo](./Imagem-Banner/printdojogo.png) 
+![Banner do Jogo](./Imagem-Banner/printdojogo.jpeg) 
 
 ---
 
