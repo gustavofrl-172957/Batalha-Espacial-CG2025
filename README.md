@@ -66,7 +66,7 @@ A pontuação final é calculada com base nos abates e recebe um **Bônus de Tem
 
 ## 📦 Links do Projeto
 
-* **Executável do Projeto:** [Clique aqui](https://drive.google.com/file/d/1ADqgyMC8vlYc4QndCAkpsuWyTKKzeU76/view?usp=sharing)
+* **Executável do Projeto:** [Clique aqui](https://drive.google.com/file/d/1hFqF27WmtE8D104NJwUmTtHGrAr2ywDA/view?usp=sharing)
 * **Vídeo Demonstrativo:** [Clique aqui](link.com.br)
 
 ---
