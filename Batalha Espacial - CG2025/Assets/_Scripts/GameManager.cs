@@ -171,6 +171,16 @@ public class GameManager : MonoBehaviour
     public void GameOver(bool win, string message)
     {
         isGameRunning = false;
+
+        Time.timeScale = 0f; 
+
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            player.GetComponent<PlayerController2D>().enabled = false;
+            player.GetComponent<PlayerShooting2D>().enabled = false;
+        }
+
         if (gameOverPanel)
         {
             gameOverPanel.SetActive(true);
@@ -180,12 +190,14 @@ public class GameManager : MonoBehaviour
             {
                 if(nameInput) nameInput.gameObject.SetActive(true);
                 if(submitButton) submitButton.gameObject.SetActive(true);
-                if(restartButton) restartButton.SetActive(false);
+                
+                if(restartButton) restartButton.SetActive(false); 
             }
             else
             {
                 if(nameInput) nameInput.gameObject.SetActive(false);
                 if(submitButton) submitButton.gameObject.SetActive(false);
+                
                 if(restartButton) restartButton.SetActive(true);
             }
         }
@@ -195,16 +207,23 @@ public class GameManager : MonoBehaviour
     {
         string name = (nameInput && nameInput.text.Length > 0) ? nameInput.text : "Piloto";
         int oldHigh = PlayerPrefs.GetInt("HighScore", 0);
+
         if (GameSettings.CurrentScore > oldHigh)
         {
             PlayerPrefs.SetInt("HighScore", GameSettings.CurrentScore);
             PlayerPrefs.SetString("HighName", name);
             PlayerPrefs.SetFloat("BestTime", levelTime - currentTime);
         }
-        ReturnToMenu();
+        
+        ReturnToMenu(); 
     }
 
-    public void ReturnToMenu() { SceneManager.LoadScene("MainMenu"); }
+    public void ReturnToMenu() 
+    { 
+        Time.timeScale = 1f; 
+        
+        SceneManager.LoadScene("MainMenu"); 
+    }
     
     void UpdateUI()
     {
