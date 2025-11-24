@@ -35,7 +35,6 @@ public class GameManager : MonoBehaviour
 
     void Awake() 
     { 
-        // Garante que só existe um Manager
         if (Instance != null && Instance != this) 
         { 
             Destroy(gameObject); 
@@ -93,13 +92,11 @@ public class GameManager : MonoBehaviour
         {
             yield return new WaitForSeconds(2f);
 
-            // --- CORREÇÃO DE SEGURANÇA (O ERRO ESTAVA AQUI) ---
             if (enemyPrefabs == null || enemyPrefabs.Length == 0)
             {
                 Debug.LogWarning("AVISO: Lista de Inimigos vazia no GameController! Pulando spawn.");
-                continue; // Pula este loop e tenta de novo depois
+                continue;
             }
-            // --------------------------------------------------
 
             Vector3 spawnPos = new Vector3(Random.Range(-8f, 8f), 7f, 0f);
             GameObject toSpawn = null;
@@ -206,14 +203,16 @@ public class GameManager : MonoBehaviour
     public void SubmitScore()
     {
         string name = (nameInput && nameInput.text.Length > 0) ? nameInput.text : "Piloto";
-        int oldHigh = PlayerPrefs.GetInt("HighScore", 0);
-
-        if (GameSettings.CurrentScore > oldHigh)
-        {
-            PlayerPrefs.SetInt("HighScore", GameSettings.CurrentScore);
-            PlayerPrefs.SetString("HighName", name);
-            PlayerPrefs.SetFloat("BestTime", levelTime - currentTime);
-        }
+        
+        float timeSpent = levelTime - currentTime;
+        
+        RankingData.AddNewEntry(
+            name, 
+            GameSettings.CurrentScore, 
+            timeSpent, 
+            GameSettings.SelectedDifficulty,
+            GameSettings.SelectedLevel
+        );
         
         ReturnToMenu(); 
     }
