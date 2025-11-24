@@ -45,7 +45,13 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        currentTime = levelTime;
+        // Fase 1 -> valor base 7 configurado no Inspector
+        // Fase 2 -> base + 2  (ex: 9)
+        // Fase 3 -> base + 4  (ex: 11)
+        int baseKills = killsToSpawnBoss;
+        killsToSpawnBoss = baseKills + (GameSettings.SelectedLevel - 1) * 2;
+
+        currentTime = levelTime; // 300s configurado no Inspector
         GameSettings.CurrentScore = 0;
         
         SpawnPlayer();
@@ -88,9 +94,18 @@ public class GameManager : MonoBehaviour
 
     IEnumerator SpawnRoutine()
     {
+        // Define intervalo de spawn pelo nível de dificuldade
+        float spawnInterval = 2f;
+        switch (GameSettings.SelectedDifficulty)
+        {
+            case GameSettings.Difficulty.Facil:   spawnInterval = 2.0f; break; // menos inimigos
+            case GameSettings.Difficulty.Medio:   spawnInterval = 1.8f; break;
+            case GameSettings.Difficulty.Dificil: spawnInterval = 1.5f; break; // mais inimigos
+        }
+
         while (isGameRunning && !isBossActive)
         {
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(spawnInterval);
 
             if (enemyPrefabs == null || enemyPrefabs.Length == 0)
             {
@@ -142,7 +157,6 @@ public class GameManager : MonoBehaviour
     {
         if (!isGameRunning) return;
 
-        // --- PONTUAÇÃO FIXA DO REQUISITO ---
         int basePoints = 0;
         if (type == "EnemySmall") basePoints = 12;
         else if (type == "EnemyBig") basePoints = 22;
@@ -156,7 +170,7 @@ public class GameManager : MonoBehaviour
         
         UpdateUI();
 
-        // 4. Lógica de Abate
+        // Lógica de Abate
         if (type == "Boss")
         {
             if (isBossActive)

@@ -40,4 +40,25 @@ public static class GameBalance
             default: return 20;
         }
     }
+
+    public static int GetDamageFromPlayer(int baseDamage)
+    {
+        // Fácil  -> 100% do dano
+        // Médio  -> 100% do dano
+        // Difícil-> 130% do dano (buff pra não ficar injusto)
+        float multiplier = 1f;
+
+        switch (GameSettings.SelectedDifficulty)
+        {
+            case GameSettings.Difficulty.Facil:
+            case GameSettings.Difficulty.Medio:
+                multiplier = 1f;
+                break;
+            case GameSettings.Difficulty.Dificil:
+                multiplier = 1.3f;
+                break;
+        }
+
+        return Mathf.CeilToInt(baseDamage * multiplier);
+    }
 }

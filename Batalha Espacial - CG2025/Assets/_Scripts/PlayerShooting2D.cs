@@ -25,7 +25,15 @@ public class PlayerShooting2D : MonoBehaviour
 
     void Shoot()
     {
-        Instantiate(projectilePrefab, shootPoint.position, shootPoint.rotation);
+        GameObject projGO = Instantiate(projectilePrefab, shootPoint.position, shootPoint.rotation);
+
+        //Dano do projétil de acordo com a dificuldade
+        Projectile2D proj = projGO.GetComponent<Projectile2D>();
+        if (proj != null)
+        {
+            proj.damage = GameBalance.GetDamageFromPlayer(proj.damage);
+        }
+
         if(shootSound && audioSource) audioSource.PlayOneShot(shootSound);
     }
 }
