@@ -22,12 +22,18 @@ public class EnemyBase : MonoBehaviour
 
     void Start()
     {
-        // HP baseado na dificuldade (via GameBalance)
+        // 1. Configura HP Baseado na Tag (Usando as novas Tags)
         if (!isAsteroid)
         {
-            // Se for inimigo grande (verificando pelo nome do arquivo ou pontos) ganha mais vida
-            string type = points > 150 ? "Big" : "Small"; 
+            string type = gameObject.tag == "EnemyBig" ? "Big" : "Small"; 
             hp = GameBalance.GetEnemyHP(type);
+
+            // 2. Aumenta Velocidade na Dificuldade/Fase
+            float levelSpeedBonus = (GameSettings.SelectedLevel - 1) * 0.5f;
+            speed += levelSpeedBonus; 
+            
+            if (GameSettings.SelectedDifficulty == GameSettings.Difficulty.Dificil)
+                speed *= 1.2f;
         }
 
         // Define direção inicial:
@@ -84,15 +90,13 @@ public class EnemyBase : MonoBehaviour
 
     public void Die()
     {
-        // Notifica o GameManager
         if (GameManager.Instance != null)
         {
-            GameManager.Instance.RegisterKill(isAsteroid ? "Asteroid" : "Enemy", points);
+            string typeToRegister = isAsteroid ? "Asteroid" : gameObject.tag;
+            GameManager.Instance.RegisterKill(typeToRegister, points);
         }
 
-        // Efeito visual
         if (explosionPrefab) Instantiate(explosionPrefab, transform.position, Quaternion.identity);
-        
         Destroy(gameObject);
     }
 

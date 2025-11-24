@@ -11,6 +11,8 @@ TagManager:
   - Boss
   - Bullet
   - Background
+  - EnemySmall
+  - EnemyBig
   layers:
   - Default
   - TransparentFX

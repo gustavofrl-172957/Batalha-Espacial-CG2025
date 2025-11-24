@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviour
     {
         if (playerPrefab != null)
         {
-            GameObject playerGO = Instantiate(playerPrefab, new Vector3(0, -4, 0), Quaternion.identity);
+            GameObject playerGO = Instantiate(playerPrefab, new Vector3(0, 1, 0), Quaternion.identity);
             PlayerController2D playerScript = playerGO.GetComponent<PlayerController2D>();
             
             if (playerScript != null && playerHealthSlider != null)
@@ -119,34 +119,69 @@ public class GameManager : MonoBehaviour
     void ConfigureEnemyShooting(EnemyBase enemy)
     {
         var dif = GameSettings.SelectedDifficulty;
-        if (dif == GameSettings.Difficulty.Dificil) enemy.canShoot = true;
-        else if (dif == GameSettings.Difficulty.Medio && enemy.points > 200) enemy.canShoot = true;
-        else enemy.canShoot = false;
+        string enemyTag = enemy.gameObject.tag;
+
+        // DIFICIL: TODOS ATIRAM (Small e Big)
+        if (dif == GameSettings.Difficulty.Dificil)
+        {
+            enemy.canShoot = true;
+        }
+        // MEDIO: SÓ OS GRANDES ATIRAM
+        else if (dif == GameSettings.Difficulty.Medio)
+        {
+            enemy.canShoot = enemyTag == "EnemyBig"; 
+        }
+        // FACIL: NINGUÉM ATIRA
+        else
+        {
+            enemy.canShoot = false;
+        }
     }
 
     public void RegisterKill(string type, int points)
     {
         if (!isGameRunning) return;
 
-        GameSettings.CurrentScore += points;
+        // --- PONTUAÇÃO FIXA DO REQUISITO ---
+        int basePoints = 0;
+        if (type == "EnemySmall") basePoints = 12;
+        else if (type == "EnemyBig") basePoints = 22;
+        else if (type == "Asteroid") basePoints = 5;
+        else if (type == "Boss") basePoints = 450; 
+
+        // Multiplicador de PONTOS por FASE: +50% de bônus por nível acima do 1
+        float phaseMultiplier = 1f + (GameSettings.SelectedLevel - 1) * 0.5f; 
+        int finalPoints = Mathf.CeilToInt(basePoints * phaseMultiplier);
+        GameSettings.CurrentScore += finalPoints;
         
+        UpdateUI();
+
+        // 4. Lógica de Abate
         if (type == "Boss")
         {
-            CalculateTimeBonus();
-            GameOver(true, "VITÓRIA! MISSÃO CUMPRIDA.");
+            if (isBossActive)
+            {
+                CalculateTimeBonus();
+                GameOver(true, "VITÓRIA! MISSÃO CUMPRIDA.");
+            }
         }
-        else if (type != "Asteroid" && !isBossActive)
+        else if (type == "EnemySmall" || type == "EnemyBig") 
         {
             currentKills++;
-            if (currentKills >= killsToSpawnBoss) SpawnBoss();
+            if (currentKills >= killsToSpawnBoss)
+            {
+                SpawnBoss();
+            }
         }
         UpdateUI();
     }
 
     void SpawnBoss()
     {
+        if (isBossActive) return; 
+
         isBossActive = true;
-        if(bossPrefab) Instantiate(bossPrefab, new Vector3(0, 3.5f, 0), Quaternion.identity);
+        if(bossPrefab) Instantiate(bossPrefab, new Vector3(0, 3.5f, 0), Quaternion.identity); 
         
         if(objectivesText) objectivesText.text = "ALERTA: CHEFE DETECTADO!";
         if(bossHealthBar) {

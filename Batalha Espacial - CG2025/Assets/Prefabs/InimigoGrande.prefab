@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6165208171155737674}
   m_Layer: 0
   m_Name: InimigoGrande
-  m_TagString: Enemy
+  m_TagString: EnemyBig
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -179,7 +179,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be665ea14a6e6d84f8f7da624d06c233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BigEnemy
-  hp: 100
+  hp: 60
   points: 100
   speed: 2
   isAsteroid: 0

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6106214802536230997}
   m_Layer: 0
   m_Name: InimigoPequeno
-  m_TagString: Enemy
+  m_TagString: EnemySmall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -179,7 +179,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be665ea14a6e6d84f8f7da624d06c233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SmallEnemy
-  hp: 50
+  hp: 20
   points: 70
   speed: 3.5
   isAsteroid: 0

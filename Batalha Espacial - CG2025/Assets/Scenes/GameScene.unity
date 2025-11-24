@@ -1433,7 +1433,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   killsToSpawnBoss: 7
-  levelTime: 120
+  levelTime: 300
   playerPrefab: {fileID: 8089463292665794593, guid: cdb43d8b3966e2049acd23dadeb8334a, type: 3}
   bossPrefab: {fileID: 4119034772853035617, guid: 7afaff7167f30bf45ad2481149e0b176, type: 3}
   asteroidPrefab: {fileID: 1295258459389861358, guid: 71ee335f84b00b24dbfd9a707a007f23, type: 3}

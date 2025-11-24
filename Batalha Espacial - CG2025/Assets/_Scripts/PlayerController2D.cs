@@ -81,11 +81,12 @@ public class PlayerController2D : MonoBehaviour
             TakeDamage(GameBalance.GetDamageToPlayer());
             Destroy(other.gameObject);
         }
-        else if (other.CompareTag("Enemy") || other.CompareTag("Asteroid") || other.CompareTag("Boss"))
+        // Verifica TAGs especificas de inimigos
+        else if (other.CompareTag("EnemySmall") || other.CompareTag("EnemyBig") || other.CompareTag("Asteroid") || other.CompareTag("Boss"))
         {
-            TakeDamage(25); // Regra: 25% de dano na colisão
+            TakeDamage(25); // Regra: 25% de dano na colisão (25% de 100 HP)
             
-            // Se não for o Boss, o objeto colidido explode
+            // Se for Boss, ele não morre. Se for qualquer outra coisa, ele explode.
             if (!other.CompareTag("Boss"))
             {
                 // Tenta acessar o script do inimigo/asteroide para matar ele corretamente

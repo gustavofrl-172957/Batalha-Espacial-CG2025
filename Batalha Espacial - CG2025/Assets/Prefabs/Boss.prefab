@@ -224,7 +224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5aa2523c4d643154794e5b18928c0783, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossController
-  hp: 300
+  hp: 500
   points: 450
   speed: 3
   projectilePrefab: {fileID: 3207127327660374025, guid: 6d5c68b6db560fe43b0979f3043844ff, type: 3}
