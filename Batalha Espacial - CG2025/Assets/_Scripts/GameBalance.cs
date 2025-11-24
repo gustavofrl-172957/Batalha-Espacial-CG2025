@@ -2,7 +2,6 @@ using UnityEngine;
 
 public static class GameBalance
 {
-    public enum Difficulty { Facil, Medio, Dificil }
 
     public static int GetEnemyHP(string enemyType)
     {

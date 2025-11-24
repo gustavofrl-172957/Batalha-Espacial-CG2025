@@ -23,17 +23,32 @@ public class MenuManager : MonoBehaviour
                 for (int i = 0; i < ranking.entries.Count; i++)
                 {
                     RankingEntry entry = ranking.entries[i];
+
+                    string diffLetter = GetDifficultyLetter(entry.difficulty);
                     
-                    rankingStr += string.Format("{0}. {1} - {2} Pts | {3}s (L{4}-{5})\n", 
-                                                i + 1, 
-                                                entry.playerName.Length > 10 ? entry.playerName.Substring(0, 10) + "..." : entry.playerName,
-                                                entry.score.ToString("N0"), 
-                                                entry.time.ToString("F2"),
-                                                entry.level,
-                                                entry.difficulty.ToString().Substring(0, 1));
+                    rankingStr += string.Format(
+                        "{0}. {1} - {2} Pts | {3}s (L{4}-{5})\n", 
+                        i + 1, 
+                        entry.playerName.Length > 10 ? entry.playerName.Substring(0, 10) + "..." : entry.playerName,
+                        entry.score.ToString("N0"), 
+                        entry.time.ToString("F2"),
+                        entry.level,
+                        diffLetter
+                    );
                 }
             }
             rankingText.text = rankingStr;
+        }
+    }
+
+    private string GetDifficultyLetter(GameSettings.Difficulty diff)
+    {
+        switch (diff)
+        {
+            case GameSettings.Difficulty.Facil:   return "F";
+            case GameSettings.Difficulty.Medio:   return "M";
+            case GameSettings.Difficulty.Dificil: return "D";
+            default: return "?";
         }
     }
 
