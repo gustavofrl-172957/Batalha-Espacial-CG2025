@@ -8,7 +8,7 @@ Trabalho prático final para a disciplina de **Computação Gráfica e Realidade
 
 Diferente dos jogos de "nave" tradicionais verticais, aqui você possui liberdade total de rotação (360º) para mirar e pilotar, exigindo reflexos rápidos para gerenciar ameaças vindo de todas as direções enquanto corre contra o tempo.
 
-![Banner do Jogo](./Imagem-Banner/printdojogo.jpeg) 
+![Banner do Jogo](https://private-user-images.githubusercontent.com/229839896/517923981-2219ac63-f373-4738-9887-c05bed20f586.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NjM5NTIxODAsIm5iZiI6MTc2Mzk1MTg4MCwicGF0aCI6Ii8yMjk4Mzk4OTYvNTE3OTIzOTgxLTIyMTlhYzYzLWYzNzMtNDczOC05ODg3LWMwNWJlZDIwZjU4Ni5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUxMTI0JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MTEyNFQwMjM4MDBaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT05NTg0MGNkOTMxNTY2NjJkOTk0MWM4NTJhZjA4NWEwNzg0OTY5ZTNhODg0ODQzN2NiMmQ0YjE0NmZkOWZjZTVkJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.eGZnBlUs0pJXc5pz5o4M3773eCAo05CKei3m0_zurdw) 
 
 ---
 
