@@ -1,4 +1,4 @@
-# 🚀 Space War 2025
+# 🚀 Batalha Espacial (CG & RV 2025): Galaxy Defense
 
 Trabalho prático final para a disciplina de **Computação Gráfica e Realidade Virtual (CG & RV)**, ministrada pelo Prof. Dr. Rafael Rieder.
 
