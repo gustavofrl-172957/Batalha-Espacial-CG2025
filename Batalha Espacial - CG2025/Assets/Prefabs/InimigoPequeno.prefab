@@ -179,8 +179,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be665ea14a6e6d84f8f7da624d06c233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SmallEnemy
-  hp: 70
-  points: 60
+  hp: 50
+  points: 70
   speed: 3.5
   isAsteroid: 0
   projectilePrefab: {fileID: 3207127327660374025, guid: 6d5c68b6db560fe43b0979f3043844ff, type: 3}

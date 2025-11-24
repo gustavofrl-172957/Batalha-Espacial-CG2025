@@ -180,7 +180,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BigEnemy
   hp: 100
-  points: 150
+  points: 100
   speed: 2
   isAsteroid: 0
   projectilePrefab: {fileID: 3207127327660374025, guid: 6d5c68b6db560fe43b0979f3043844ff, type: 3}

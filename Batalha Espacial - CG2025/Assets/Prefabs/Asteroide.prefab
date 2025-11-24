@@ -168,7 +168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be665ea14a6e6d84f8f7da624d06c233, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyBase
-  hp: 50
+  hp: 10
   points: 10
   speed: 2
   isAsteroid: 1
